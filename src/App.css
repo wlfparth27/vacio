@@ -1534,11 +1534,11 @@
      ----------------------------------------- */
 
   .idea-section {
-    min-height: 145vh;
+    min-height: 138vh;
   }
 
   .idea-section__inner {
-    min-height: 145vh;
+    min-height: 138vh;
   }
 
   .idea-section__index {
@@ -1546,23 +1546,27 @@
   }
 
   .idea-section__statement {
-    top: 15%;
+    top: 13%;
     left: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .idea-section__statement h2 {
-    font-size: clamp(3.5rem, 16vw, 6rem);
+    font-size: clamp(3.25rem, 15vw, 5.5rem);
+    line-height: 0.82;
+    letter-spacing: -0.075em;
   }
 
   .idea-section__middle {
-    top: 53%;
+    top: 56%;
     right: 0;
-
-    width: 65%;
+    width: min(72%, 300px);
   }
 
   .idea-section__middle p {
-    font-size: 18px;
+    font-size: 17px;
+    line-height: 1.35;
   }
 
   .idea-section__conclusion {
@@ -1571,7 +1575,22 @@
   }
 
   .idea-section__conclusion h3 {
-    font-size: clamp(3.5rem, 16vw, 6rem);
+    font-size: clamp(3.25rem, 15vw, 5.5rem);
+    line-height: 0.82;
+  }
+
+
+  /* Keep the Idea sequence readable on small screens. */
+  .idea-section__statement.reveal--mask {
+    transition-delay: 0ms;
+  }
+
+  .idea-section__middle.reveal--focus {
+    transition-delay: 120ms;
+  }
+
+  .idea-section__conclusion.reveal--mask {
+    transition-delay: 220ms;
   }
 
 
