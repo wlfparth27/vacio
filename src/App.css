@@ -1534,11 +1534,11 @@
      ----------------------------------------- */
 
   .idea-section {
-    min-height: 138vh;
+    min-height: 142vh;
   }
 
   .idea-section__inner {
-    min-height: 138vh;
+    min-height: 142vh;
   }
 
   .idea-section__index {
@@ -1570,8 +1570,9 @@
   }
 
   .idea-section__conclusion {
-    top: 76%;
+    top: 68%;
     left: 0;
+    padding-bottom: 12vh;
   }
 
   .idea-section__conclusion h3 {
