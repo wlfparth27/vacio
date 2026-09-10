@@ -19,7 +19,7 @@ function Footer() {
             Instagram ↗
           </a>
 
-          <a href="mailto:VoidMediaMain@gmail.com">
+          <a href="mailto:voidm.edia@outlook.com">
             Email ↗
           </a>
         </div>
