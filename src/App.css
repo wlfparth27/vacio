@@ -1534,11 +1534,11 @@
      ----------------------------------------- */
 
   .idea-section {
-    min-height: 142vh;
+    min-height: 145vh;
   }
 
   .idea-section__inner {
-    min-height: 142vh;
+    min-height: 145vh;
   }
 
   .idea-section__index {
@@ -1546,52 +1546,32 @@
   }
 
   .idea-section__statement {
-    top: 13%;
+    top: 15%;
     left: 0;
-    width: 100%;
-    max-width: 100%;
   }
 
   .idea-section__statement h2 {
-    font-size: clamp(3.25rem, 15vw, 5.5rem);
-    line-height: 0.82;
-    letter-spacing: -0.075em;
+    font-size: clamp(3.5rem, 16vw, 6rem);
   }
 
   .idea-section__middle {
-    top: 56%;
+    top: 53%;
     right: 0;
-    width: min(72%, 300px);
+
+    width: 65%;
   }
 
   .idea-section__middle p {
-    font-size: 17px;
-    line-height: 1.35;
+    font-size: 18px;
   }
 
   .idea-section__conclusion {
-    top: 68%;
+    top: 76%;
     left: 0;
-    padding-bottom: 12vh;
   }
 
   .idea-section__conclusion h3 {
-    font-size: clamp(3.25rem, 15vw, 5.5rem);
-    line-height: 0.82;
-  }
-
-
-  /* Keep the Idea sequence readable on small screens. */
-  .idea-section__statement.reveal--mask {
-    transition-delay: 0ms;
-  }
-
-  .idea-section__middle.reveal--focus {
-    transition-delay: 120ms;
-  }
-
-  .idea-section__conclusion.reveal--mask {
-    transition-delay: 220ms;
+    font-size: clamp(3.5rem, 16vw, 6rem);
   }
 
 
@@ -2899,12 +2879,12 @@
 
 :root {
   --void-glow-strong:
-    0 0 14px rgba(245, 245, 242, 0.055),
-    0 0 36px rgba(245, 245, 242, 0.025);
+    0 0 8px rgba(245, 245, 242, 0.035),
+    0 0 22px rgba(245, 245, 242, 0.014);
 
   --void-glow-soft:
-    0 0 10px rgba(245, 245, 242, 0.03),
-    0 0 24px rgba(245, 245, 242, 0.015);
+    0 0 6px rgba(245, 245, 242, 0.018),
+    0 0 14px rgba(245, 245, 242, 0.008);
 }
 
 .hero h1,
@@ -2973,20 +2953,15 @@
   text-shadow: none;
 }
 
-/* Extra bloom during the entrance reveal. */
+/* Keep reveals clean: no wrapper-level glow or blur, which can create visible boxes. */
 .reveal--mask > *,
 .reveal--focus {
-  text-shadow: 0 0 28px rgba(245, 245, 242, 0.10);
+  text-shadow: none;
 }
 
 .reveal--mask.reveal--visible > *,
 .reveal--focus.reveal--visible {
-  text-shadow: var(--void-glow-strong);
-  transition:
-    opacity var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay),
-    transform var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay),
-    filter var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay),
-    text-shadow 1100ms ease var(--reveal-delay);
+  text-shadow: inherit;
 }
 
 /* =========================================================
@@ -3330,4 +3305,181 @@
   .contact-form__status--error {
     margin-top: 20px;
   }
+}
+
+
+/* =========================================================
+   VOID — ATMOSPHERIC TYPE LIGHT
+   ========================================================= */
+
+/* White stays sharp. The light should feel like air around the type, not neon. */
+h1, h2, h3 {
+  color: var(--void-white);
+  text-shadow:
+    0 0 10px rgba(245, 245, 242, 0.08),
+    0 0 28px rgba(245, 245, 242, 0.035);
+  filter: none;
+}
+
+.hero h1,
+.idea-section__statement h2,
+.idea-section__conclusion h3,
+.services-section__header h2,
+.service h3,
+.work-section__intro h2,
+.work-project__heading h3,
+.gap-section__content h2,
+.about-section__header h2,
+.why-void-section__header h2,
+.process-section__header h2,
+.process-step h3,
+.contact-section__header h2,
+.site-footer__main h2 {
+  text-shadow:
+    0 0 5px rgba(245, 245, 242, 0.22),
+    0 0 16px rgba(245, 245, 242, 0.10),
+    0 0 34px rgba(245, 245, 242, 0.045);
+  filter: none;
+}
+
+/* Supporting copy gets almost imperceptible separation from the black field. */
+.hero__description,
+.hero__location,
+.hero__label,
+.idea-section__middle p,
+.idea-section__label,
+.services-section__index,
+.service__description,
+.service__details p,
+.work-section__intro p,
+.work-project__category,
+.work-project__footer p,
+.gap-section__index,
+.gap-section__lead,
+.gap-section__body,
+.about-section__index,
+.about-section__lead,
+.about-section__body,
+.about-section__team,
+.team-member p,
+.team-member__number,
+.why-void-section__index,
+.why-void-section__header > p,
+.principle p,
+.principle__number,
+.process-section__index,
+.process-section__header > p,
+.process-step p,
+.process-step__number,
+.contact-section__index,
+.contact-section__lead,
+.contact-section__body,
+.contact-form__field label,
+.site-footer__main p,
+.site-footer__links a,
+.site-footer__bottom {
+  text-shadow: 0 0 7px rgba(245, 245, 242, 0.016);
+}
+
+.button,
+.site-nav,
+.site-nav__logo,
+.site-nav__links,
+.site-nav__cta,
+.work-project__link,
+.contact-form__submit {
+  text-shadow: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  h1, h2, h3 {
+    text-shadow: none;
+    filter: none;
+  }
+}
+
+/* No wrapper blur: it creates a rectangular bloom around text during focus reveals. */
+.reveal--focus,
+.reveal--focus.reveal--visible {
+  filter: none;
+}
+
+/* Masked headings keep the type glow; the wrapper itself stays completely clean. */
+.reveal--mask > h1,
+.reveal--mask > h2,
+.reveal--mask > h3,
+.reveal--mask > .hero h1,
+.reveal--mask > .idea-section__statement h2,
+.reveal--mask > .idea-section__conclusion h3 {
+  text-shadow:
+    0 0 5px rgba(245, 245, 242, 0.22),
+    0 0 16px rgba(245, 245, 242, 0.10),
+    0 0 34px rgba(245, 245, 242, 0.045);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal--mask > h1,
+  .reveal--mask > h2,
+  .reveal--mask > h3 {
+    text-shadow: none;
+  }
+}
+
+/* =========================================================
+   VOID — LOGO-MATCH TYPE GLOW
+   Stronger atmospheric light, inspired by the actual VOID mark.
+   Applied to the glyphs only — never to the reveal wrapper.
+   ========================================================= */
+
+h1, h2, h3 {
+  filter: none;
+}
+
+.hero h1,
+.idea-section__statement h2,
+.idea-section__conclusion h3,
+.services-section__header h2,
+.service h3,
+.work-section__intro h2,
+.work-project__heading h3,
+.gap-section__content h2,
+.about-section__header h2,
+.why-void-section__header h2,
+.process-section__header h2,
+.process-step h3,
+.contact-section__header h2,
+.site-footer__main h2,
+.reveal--mask > h1,
+.reveal--mask > h2,
+.reveal--mask > h3 {
+  text-shadow:
+    0 0 7px rgba(245, 245, 242, 0.38),
+    0 0 20px rgba(245, 245, 242, 0.24),
+    0 0 42px rgba(245, 245, 242, 0.12);
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  h1, h2, h3 {
+    text-shadow: none;
+    filter: none;
+  }
+}
+
+/* =========================================================
+   FIX — MASKED IDEA HEADINGS
+   The visible-state reveal rule has higher specificity than
+   the normal heading glow, so it was replacing the glow with
+   `inherit`. Restore the glow on the actual glyphs only.
+   ========================================================= */
+
+.reveal--mask.reveal--visible > h1,
+.reveal--mask.reveal--visible > h2,
+.reveal--mask.reveal--visible > h3 {
+  text-shadow:
+    0 0 7px rgba(245, 245, 242, 0.38),
+    0 0 20px rgba(245, 245, 242, 0.24),
+    0 0 42px rgba(245, 245, 242, 0.12);
+  filter: none;
 }
