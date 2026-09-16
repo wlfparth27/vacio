@@ -36,7 +36,7 @@ function SiteNav() {
       aria-label="Main navigation"
     >
       <a href="#home" className="site-nav__logo">
-        VOID MEDIA
+        VACIO.
       </a>
 
       <div className="site-nav__links">
@@ -63,7 +63,7 @@ function App() {
         <section className="hero" id="home">
           <div className="hero__grid">
             <div className="hero__content">
-              <p className="hero__label">VOID MEDIA / 001</p>
+              <p className="hero__label">VACIO. / 001</p>
 
               <h1>
                 GIVE IDEAS
