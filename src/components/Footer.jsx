@@ -3,7 +3,7 @@ function Footer() {
     <footer className="site-footer">
       <div className="site-footer__inner">
         <div className="site-footer__main">
-          <h2>VOID MEDIA</h2>
+          <h2>VACIO.</h2>
 
           <p>
             The space before something takes form.
@@ -26,7 +26,7 @@ function Footer() {
 
         <div className="site-footer__bottom">
           <span>DEHRADUN, INDIA</span>
-          <span>© 2026 VOID MEDIA</span>
+          <span>© 2026 VACIO.</span>
         </div>
       </div>
     </footer>
