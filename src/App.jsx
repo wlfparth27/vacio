@@ -108,7 +108,7 @@ function App() {
                 style={{
                   width: '78%',
                   marginLeft: 'auto',
-                  filter: 'brightness(1.35)',
+                  filter: 'brightness(1.5)',
                 }}
               />
             </div>
