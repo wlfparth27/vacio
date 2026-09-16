@@ -27,7 +27,7 @@ function WhyVoidSection() {
       <div className="why-void-section__inner">
 
         <div className="why-void-section__index">
-          007 / WHY VOID
+          007 / WHY VACIO.
         </div>
 
         <div className="why-void-section__header">
