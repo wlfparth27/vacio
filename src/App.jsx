@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import vacioHeroLogo from './assets/vacioHeroLogo'
 
 import IdeaSection from './components/IdeaSection'
 import ServicesSection from './components/ServicesSection'
@@ -95,7 +96,7 @@ function App() {
             </div>
 
             <div className="hero__mark" aria-hidden="true">
-              <img src="/void-logo.PNG" alt="" />
+              <img src={vacioHeroLogo} alt="" />
             </div>
           </div>
         </section>
