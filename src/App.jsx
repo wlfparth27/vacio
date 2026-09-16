@@ -95,7 +95,15 @@ function App() {
             </div>
 
             <div className="hero__mark" aria-hidden="true">
-              <img src="/vacio-hero-logo.png" alt="" style={{ opacity: 0.18 }} />
+              <img
+                src="/vacio-hero-logo.png"
+                alt=""
+                style={{
+                  width: '78%',
+                  marginLeft: 'auto',
+                  filter: 'brightness(1.35)',
+                }}
+              />
             </div>
           </div>
         </section>
