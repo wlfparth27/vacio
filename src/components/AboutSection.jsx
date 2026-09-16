@@ -17,12 +17,12 @@ function AboutSection() {
 
         <div className="about-section__intro">
           <p className="about-section__lead">
-            Void Media is an independent digital studio
+            Vacio. is an independent digital studio
             run by three college students in Dehradun.
           </p>
 
           <p className="about-section__body">
-            We started Void to make things that are
+            We started Vacio. to make things that are
             interesting, useful and worth putting into
             the world.
           </p>
