@@ -41,7 +41,6 @@ function WorkSection() {
           </span>
 
           <div className="work-section__intro">
-            <span className="section-index">01</span>
             <h2>
               THINGS
               <br />
