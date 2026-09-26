@@ -36,8 +36,8 @@ function WorkSection() {
       <div className="work-section__inner">
 
         <header className="work-section__header">
-          <span className="work-section__index">
-            004 / WORK
+          <span className="work-section__index section-index">
+            04
           </span>
 
           <div className="work-section__intro">

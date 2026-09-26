@@ -4,8 +4,8 @@ function ServicesSection() {
       <div className="services-section__inner">
 
         <div className="services-section__header">
-          <span className="services-section__index">
-            003 / WHAT WE MAKE
+          <span className="services-section__index section-index">
+            03
           </span>
 
           <h2>

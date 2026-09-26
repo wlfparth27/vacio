@@ -51,7 +51,7 @@ function ContactSection() {
           delay={0}
           duration={600}
         >
-          <div>009 / CONTACT</div>
+          <div>09</div>
         </Reveal>
 
         <div className="contact-section__header">

@@ -3,8 +3,8 @@ function AboutSection() {
     <section className="about-section" id="about">
       <div className="about-section__inner">
 
-        <div className="about-section__index">
-          006 / ABOUT
+        <div className="about-section__index section-index">
+          06
         </div>
 
         <div className="about-section__header">
