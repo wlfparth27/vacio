@@ -8,6 +8,7 @@ function ServicesSection() {
             003 / WHAT WE MAKE
           </span>
 
+          <span className="section-index">02</span>
           <h2>
             WHAT
             <br />
