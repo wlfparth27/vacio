@@ -123,3 +123,100 @@ html {
     font-size: clamp(3.5rem, 16vw, 7.2rem);
   }
 }
+
+/* Editorial display headings: override legacy tight sans tracking only on requested headings. */
+.hero h1,
+.services-section__header h2,
+.work-section__intro h2,
+.about-section__header h2,
+.why-void-section__header h2,
+.contact-section__header h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+
+/* The section-index utility supplies the small display-led number; keep existing layout classes intact. */
+.section-index {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--void-grey);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+/* Work asymmetry: bleed the intro 24px past the main content edge on desktop only. */
+@media (min-width: 1024px) {
+  .work-section__intro {
+    margin-left: -24px;
+  }
+}
+
+/* Deliberate hover motion, avoiding layout-critical and scroll-linked transitions. */
+.site-nav__links a,
+.site-nav__cta,
+.button,
+.work-project__link,
+.service,
+.principle,
+.live-preview__open,
+.live-preview__poster,
+.contact-form__submit,
+.contact-form__reset,
+.service__arrow,
+.principle__arrow,
+.work-project__link span,
+.button span {
+  transition-duration: 450ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Existing row reveals already have nth-child delays in App.css; project cards do not use Reveal,
+   so no JS/index plumbing is added for them. */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--void-line);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--void-grey);
+}
+
+html {
+  scrollbar-color: var(--void-line) var(--void-black);
+  scrollbar-width: thin;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__links a,
+  .site-nav__cta,
+  .button,
+  .work-project__link,
+  .service,
+  .principle,
+  .live-preview__open,
+  .live-preview__poster,
+  .contact-form__submit,
+  .contact-form__reset,
+  .service__arrow,
+  .principle__arrow,
+  .work-project__link span,
+  .button span {
+    transition-duration: 120ms;
+    transition-timing-function: ease;
+  }
+}
