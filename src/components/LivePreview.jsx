@@ -1,4 +1,8 @@
+import { useState } from 'react'
+
 function LivePreview({ src, title }) {
+  const [active, setActive] = useState(false)
+
   return (
     <div className="live-preview">
       <div className="live-preview__topbar">
@@ -9,7 +13,7 @@ function LivePreview({ src, title }) {
         </div>
 
         <div className="live-preview__address">
-          <span>VOID / LIVE PREVIEW</span>
+          <span>VACIO. / LIVE PREVIEW</span>
         </div>
 
         <a
@@ -24,27 +28,32 @@ function LivePreview({ src, title }) {
       </div>
 
       <div className="live-preview__viewport">
-        <iframe
-          src={src}
-          title={`${title} live preview`}
-          loading="lazy"
-          allow="fullscreen"
-          className="live-preview__frame"
-        />
+        {active ? (
+          <iframe
+            src={src}
+            title={`${title} live preview`}
+            loading="lazy"
+            allow="fullscreen"
+            className="live-preview__frame"
+          />
+        ) : (
+          <button
+            type="button"
+            className="live-preview__poster"
+            onClick={() => setActive(true)}
+            aria-label={`Load live preview of ${title}`}
+          >
+            <span className="live-preview__poster-title">{title}</span>
+            <span className="live-preview__poster-cta">LOAD LIVE PREVIEW ↗</span>
+          </button>
+        )}
 
         <div className="live-preview__veil" aria-hidden="true" />
-
-        <div className="live-preview__fallback">
-          <p>Preview unavailable.</p>
-          <a href={src} target="_blank" rel="noreferrer">
-            OPEN PROJECT ↗
-          </a>
-        </div>
       </div>
 
       <div className="live-preview__rail" aria-hidden="true">
         <span>INTERACTIVE SPECIMEN</span>
-        <span>SCROLL INSIDE TO EXPLORE</span>
+        <span>{active ? 'SCROLL INSIDE TO EXPLORE' : 'CLICK TO LOAD PREVIEW'}</span>
         <span>↗</span>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import './refinements.css'
 
 import IdeaSection from './components/IdeaSection'
 import ServicesSection from './components/ServicesSection'
@@ -13,6 +14,7 @@ import Footer from './components/Footer'
 
 function SiteNav() {
   const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,25 +32,53 @@ function SiteNav() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!open) return undefined
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [open])
+
+  const closeMenu = () => setOpen(false)
+
   return (
     <nav
-      className={`site-nav ${scrolled ? 'site-nav--floating' : ''}`}
+      className={`site-nav ${scrolled ? 'site-nav--floating' : ''} ${open ? 'site-nav--open' : ''}`}
       aria-label="Main navigation"
     >
       <a href="#home" className="site-nav__logo">
         VACIO.
       </a>
 
-      <div className="site-nav__links">
-        <a href="#work">WORK</a>
-        <a href="#services">SERVICES</a>
-        <a href="#about">ABOUT</a>
-        <a href="#contact">CONTACT</a>
+      <div className="site-nav__links" id="site-nav-links">
+        <a href="#work" onClick={closeMenu}>WORK</a>
+        <a href="#services" onClick={closeMenu}>SERVICES</a>
+        <a href="#about" onClick={closeMenu}>ABOUT</a>
+        <a href="#contact" onClick={closeMenu}>CONTACT</a>
       </div>
 
-      <a href="#contact" className="site-nav__cta">
+      <a href="#contact" className="site-nav__cta" onClick={closeMenu}>
         START A PROJECT <span>→</span>
       </a>
+
+      <button
+        type="button"
+        className="site-nav__toggle"
+        aria-expanded={open}
+        aria-controls="site-nav-links"
+        onClick={() => setOpen((value) => !value)}
+      >
+        {open ? 'CLOSE' : 'MENU'}
+      </button>
     </nav>
   )
 }
@@ -58,7 +88,9 @@ function App() {
     <>
       <SiteNav />
 
-      <main>
+      <a href="#main" className="skip-link">Skip to content</a>
+
+      <main id="main" tabIndex={-1}>
         {/* HERO */}
         <section className="hero" id="home">
           <div className="hero__grid">
@@ -139,9 +171,10 @@ function App() {
         {/* CONTACT */}
         <ContactSection />
 
-        {/* FOOTER */}
-        <Footer />
       </main>
+
+      {/* FOOTER */}
+      <Footer />
     </>
   )
 }

@@ -85,15 +85,23 @@ function ContactSection() {
         </div>
 
         <Reveal
-          className="reveal--preview"
+          className="reveal--preview contact-form-wrap"
           delay={140}
           duration={850}
         >
           <form
             className="contact-form"
             onSubmit={handleSubmit}
-            noValidate
           >
+            <input
+              type="text"
+              name="_gotcha"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              style={{ display: 'none' }}
+            />
+
             <div className="contact-form__field">
               <label htmlFor="name">Name</label>
               <input
@@ -129,33 +137,39 @@ function ContactSection() {
               />
             </div>
 
-            <div className="contact-form__field">
+            <div className="contact-form__field contact-form__field--select">
               <label htmlFor="project-type">What are you looking to build?</label>
-              <select id="project-type" name="project_type" defaultValue="" required>
-                <option value="" disabled>
-                  Select one
-                </option>
-                <option value="Website">Website</option>
-                <option value="Content">Content</option>
-                <option value="Tools / Digital Solution">
-                  Tools / Digital Solution
-                </option>
-                <option value="Not sure yet">Not sure yet</option>
-              </select>
+              <div className="contact-form__select-wrap">
+                <select id="project-type" name="project_type" defaultValue="" required>
+                  <option value="" disabled>
+                    Select one
+                  </option>
+                  <option value="Website">Website</option>
+                  <option value="Content">Content</option>
+                  <option value="Tools / Digital Solution">
+                    Tools / Digital Solution
+                  </option>
+                  <option value="Not sure yet">Not sure yet</option>
+                </select>
+                <span className="contact-form__select-arrow" aria-hidden="true">↓</span>
+              </div>
             </div>
 
-            <div className="contact-form__field">
+            <div className="contact-form__field contact-form__field--select">
               <label htmlFor="budget">Budget</label>
-              <select id="budget" name="budget" defaultValue="">
-                <option value="" disabled>
-                  Select a range
-                </option>
-                <option value="Under ₹10k">Under ₹10k</option>
-                <option value="₹10–25k">₹10–25k</option>
-                <option value="₹25–45k">₹25–45k</option>
-                <option value="₹45k+">₹45k+</option>
-                <option value="Not sure">Not sure</option>
-              </select>
+              <div className="contact-form__select-wrap">
+                <select id="budget" name="budget" defaultValue="">
+                  <option value="" disabled>
+                    Select a range
+                  </option>
+                  <option value="Under ₹10k">Under ₹10k</option>
+                  <option value="₹10–25k">₹10–25k</option>
+                  <option value="₹25–45k">₹25–45k</option>
+                  <option value="₹45k+">₹45k+</option>
+                  <option value="Not sure">Not sure</option>
+                </select>
+                <span className="contact-form__select-arrow" aria-hidden="true">↓</span>
+              </div>
             </div>
 
             <div className="contact-form__field contact-form__field--wide">
@@ -169,7 +183,7 @@ function ContactSection() {
             </div>
 
             {status === 'error' && (
-              <p className="contact-form__status contact-form__status--error">
+              <p className="contact-form__status contact-form__status--error" role="alert">
                 {error}
               </p>
             )}
