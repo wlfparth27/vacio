@@ -1,4 +1,127 @@
+/* =========================================================
+   VACIO SITE REFINEMENTS
+   Scoped overrides only; App.css remains unchanged.
+   ========================================================= */
 
+.site-nav__toggle { display: none; }
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 1000;
+  padding: 10px 12px;
+  background: var(--void-white);
+  color: var(--void-black);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.skip-link:focus { top: 16px; }
+
+.site-nav--open .site-nav__links { display: flex; }
+
+.contact-form__field input::placeholder,
+.contact-form__field textarea::placeholder { color: #7a7a76; }
+
+.contact-form__field input:focus::placeholder,
+.contact-form__field textarea:focus::placeholder { color: #8a8a86; }
+
+.contact-form__field select:invalid { color: #7a7a76; }
+
+.live-preview__rail {
+  color: #7a7a76;
+  font-size: 9px;
+}
+
+.live-preview__address,
+.live-preview__open { font-size: 9px; }
+
+.live-preview__poster {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+  border: 0;
+  background:
+    radial-gradient(circle at center, rgba(245, 245, 242, 0.025), transparent 58%),
+    var(--void-black);
+  color: var(--void-white);
+  cursor: pointer;
+  text-align: center;
+}
+
+.live-preview__poster-title {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
+.live-preview__poster-cta {
+  padding: 14px 18px;
+  border: 1px solid var(--void-line);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: border-color 180ms ease;
+}
+
+.live-preview__poster:hover .live-preview__poster-cta { border-color: var(--void-white); }
+
+@media (max-width: 900px) {
+  .site-nav { grid-template-columns: 1fr auto auto; }
+
+  .site-nav__cta { grid-column: 2; }
+
+  .site-nav__toggle {
+    display: inline-flex;
+    grid-column: 3;
+    align-items: center;
+    justify-content: center;
+    margin: 0 -10px 0 20px;
+    padding: 10px;
+    border: 0;
+    background: transparent;
+    color: var(--void-white);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .site-nav--open .site-nav__links {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(13, 13, 13, 0.96);
+    border: 1px solid var(--void-line);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .site-nav--open .site-nav__links a {
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--void-line);
+    font-size: 12px;
+  }
+
+  .site-nav--open .site-nav__links a:last-child { border-bottom: 0; }
+}
 
 /* =========================================================
    VACIO — LUXURY EDITORIAL PASS
@@ -220,3 +343,4 @@ html {
     transition-timing-function: ease;
   }
 }
+
