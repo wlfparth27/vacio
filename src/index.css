@@ -1,11 +1,12 @@
 :root {
-  --void-black: #050505;
+  --void-black: #0a0a0c;
   --void-surface: #0d0d0d;
   --void-white: #f5f5f2;
   --void-grey: #8a8a86;
   --void-line: #242424;
 
   --font-main: 'Space Grotesk', sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
 
   --container: 1440px;
   --gutter: clamp(20px, 4vw, 64px);
