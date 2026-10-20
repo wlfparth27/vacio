@@ -116,7 +116,6 @@ function App() {
 
   return (
     <>
-      <div className="void-ambience" aria-hidden="true" />
       {introVisible && <VoidIntro onReveal={revealSite} onComplete={enterSite} />}
 
       <div
@@ -124,6 +123,7 @@ function App() {
         inert={!siteInteractive}
         aria-hidden={!siteInteractive ? 'true' : undefined}
       >
+        <div className="void-ambience" aria-hidden="true" />
         <SiteNav />
 
         <a href="#main" className="skip-link">Skip to content</a>

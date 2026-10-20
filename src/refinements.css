@@ -1148,3 +1148,25 @@ body.void-site-revealing .site-content {
   opacity: 0 !important;
   pointer-events: none;
 }
+
+
+/* FULL-PAGE STARFIELD
+   Keep the animated star layers inside the full document rather than a
+   viewport-only sibling, so the ambience follows the entire site height. */
+.site-content {
+  isolation: isolate;
+}
+
+.site-content > .void-ambience {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  min-height: 100%;
+  pointer-events: none;
+}
+
+.site-content > .void-ambience::before,
+.site-content > .void-ambience::after {
+  position: absolute;
+  inset: -2%;
+}
