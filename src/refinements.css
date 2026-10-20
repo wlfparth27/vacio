@@ -442,3 +442,709 @@ html {
     transition: none;
   }
 }
+
+
+/* =========================================================
+   VOID ARRIVAL EXPERIENCE + CONTINUOUS ATMOSPHERE
+   ========================================================= */
+
+body.void-intro-open {
+  overflow: hidden;
+}
+
+.void-ambience {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(245, 245, 242, 0.025), transparent 48%),
+    radial-gradient(ellipse at 88% 60%, rgba(138, 138, 134, 0.018), transparent 52%);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+.void-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 28px;
+  background:
+    radial-gradient(ellipse at 50% 44%, rgba(245, 245, 242, 0.045), transparent 28%),
+    radial-gradient(ellipse at 50% 100%, rgba(138, 138, 134, 0.035), transparent 58%),
+    var(--void-black);
+  color: var(--void-white);
+  opacity: 1;
+  transition: opacity 1050ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 760px);
+  text-align: center;
+}
+
+.void-intro__halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(86vw, 760px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(245, 245, 242, 0.065) 0%,
+    rgba(245, 245, 242, 0.025) 28%,
+    transparent 66%
+  );
+  filter: blur(3px);
+  transform: translate(-50%, -55%);
+  animation: void-halo-breathe 6.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.void-intro__logo {
+  display: block;
+  width: min(70vw, 540px);
+  max-height: 46vh;
+  object-fit: contain;
+  opacity: 0.96;
+  filter:
+    drop-shadow(0 0 18px rgba(245, 245, 242, 0.25))
+    drop-shadow(0 0 54px rgba(245, 245, 242, 0.08));
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1050ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: void-logo-breathe 5.5s ease-in-out infinite alternate;
+}
+
+.void-intro__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 48px;
+  margin-top: clamp(40px, 6vh, 68px);
+  padding: 15px 22px;
+  border: 1px solid var(--void-line);
+  border-radius: 0;
+  background: rgba(10, 10, 12, 0.42);
+  color: var(--void-white);
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 450ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 450ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 450ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__button span {
+  display: inline-block;
+  font-size: 14px;
+  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__button:hover {
+  border-color: var(--void-white);
+  background: rgba(245, 245, 242, 0.035);
+}
+
+.void-intro__button:hover span {
+  transform: translate(3px, -3px);
+}
+
+.void-intro__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.void-intro--leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.void-intro--leaving .void-intro__logo {
+  animation: none;
+  opacity: 0;
+  filter: blur(18px) drop-shadow(0 0 70px rgba(245, 245, 242, 0.01));
+  transform: translateY(-26px) scale(0.62);
+}
+
+.void-intro--leaving .void-intro__halo {
+  animation: none;
+  opacity: 0;
+  transform: translate(-50%, -55%) scale(0.55);
+}
+
+.void-intro--leaving .void-intro__button {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes void-halo-breathe {
+  from { opacity: 0.65; transform: translate(-50%, -55%) scale(0.94); }
+  to { opacity: 1; transform: translate(-50%, -55%) scale(1.06); }
+}
+
+@keyframes void-logo-breathe {
+  from {
+    filter:
+      drop-shadow(0 0 14px rgba(245, 245, 242, 0.2))
+      drop-shadow(0 0 42px rgba(245, 245, 242, 0.055));
+  }
+  to {
+    filter:
+      drop-shadow(0 0 22px rgba(245, 245, 242, 0.3))
+      drop-shadow(0 0 62px rgba(245, 245, 242, 0.1));
+  }
+}
+
+@media (max-width: 600px) {
+  .void-intro {
+    padding: 24px;
+    background:
+      radial-gradient(ellipse at 50% 44%, rgba(245, 245, 242, 0.04), transparent 34%),
+      radial-gradient(ellipse at 50% 100%, rgba(138, 138, 134, 0.03), transparent 58%),
+      var(--void-black);
+  }
+
+  .void-intro__logo {
+    width: min(78vw, 420px);
+    max-height: 38vh;
+  }
+
+  .void-intro__button {
+    min-height: 48px;
+    margin-top: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .void-intro,
+  .void-intro__logo,
+  .void-intro__halo,
+  .void-intro__button,
+  .void-intro__button span {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* =========================================================
+   VOID INTRO — PURE BLACK, STARFIELD, AND A SOFTER ARRIVAL
+   ========================================================= */
+
+.site-content {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 2150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.void-site-revealing .site-content {
+  opacity: 1;
+}
+
+.void-ambience {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+.void-intro {
+  background: #000000 !important;
+  transition: opacity 1700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.78;
+  background-image:
+    radial-gradient(1px 1px at 18px 32px, rgba(245, 245, 242, 0.76) 99%, transparent 100%),
+    radial-gradient(1px 1px at 94px 127px, rgba(245, 245, 242, 0.42) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 154px 84px, rgba(245, 245, 242, 0.68) 99%, transparent 100%),
+    radial-gradient(1px 1px at 206px 194px, rgba(245, 245, 242, 0.36) 99%, transparent 100%),
+    radial-gradient(1px 1px at 57px 238px, rgba(245, 245, 242, 0.52) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 272px 53px, rgba(245, 245, 242, 0.5) 99%, transparent 100%),
+    radial-gradient(1px 1px at 328px 260px, rgba(245, 245, 242, 0.32) 99%, transparent 100%);
+  background-size: 239px 263px, 311px 347px, 401px 389px, 467px 443px, 523px 487px, 587px 541px, 641px 607px;
+  animation: void-stars-drift 180s linear infinite;
+}
+
+.void-intro__content {
+  width: min(100%, 760px);
+}
+
+.void-intro__logo-stage {
+  position: relative;
+  width: min(70vw, 540px, 83vh);
+  aspect-ratio: 1.83;
+}
+
+.void-intro__logo,
+.void-intro__fragment {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  box-shadow: none !important;
+}
+
+.void-intro__logo {
+  filter: none !important;
+  opacity: 1;
+  transform: none;
+  animation: none !important;
+  transition: opacity 240ms ease;
+}
+
+.void-intro__fragment {
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.void-intro__fragment--northwest {
+  clip-path: polygon(0 0, 35% 0, 35% 43%, 0 43%);
+  --fragment-x: -48px;
+  --fragment-y: -55px;
+  --fragment-rotate: -10deg;
+  --fragment-delay: 0ms;
+}
+
+.void-intro__fragment--north {
+  clip-path: polygon(32% 0, 69% 0, 69% 42%, 32% 42%);
+  --fragment-x: 3px;
+  --fragment-y: -70px;
+  --fragment-rotate: 5deg;
+  --fragment-delay: 45ms;
+}
+
+.void-intro__fragment--northeast {
+  clip-path: polygon(66% 0, 100% 0, 100% 44%, 66% 44%);
+  --fragment-x: 62px;
+  --fragment-y: -45px;
+  --fragment-rotate: 12deg;
+  --fragment-delay: 80ms;
+}
+
+.void-intro__fragment--middle-left {
+  clip-path: polygon(0 38%, 40% 38%, 40% 73%, 0 73%);
+  --fragment-x: -78px;
+  --fragment-y: 4px;
+  --fragment-rotate: -8deg;
+  --fragment-delay: 25ms;
+}
+
+.void-intro__fragment--middle-right {
+  clip-path: polygon(60% 36%, 100% 36%, 100% 75%, 60% 75%);
+  --fragment-x: 77px;
+  --fragment-y: 12px;
+  --fragment-rotate: 9deg;
+  --fragment-delay: 55ms;
+}
+
+.void-intro__fragment--southwest {
+  clip-path: polygon(0 68%, 42% 68%, 42% 100%, 0 100%);
+  --fragment-x: -55px;
+  --fragment-y: 62px;
+  --fragment-rotate: -13deg;
+  --fragment-delay: 75ms;
+}
+
+.void-intro__fragment--south {
+  clip-path: polygon(38% 69%, 72% 69%, 72% 100%, 38% 100%);
+  --fragment-x: 4px;
+  --fragment-y: 76px;
+  --fragment-rotate: 4deg;
+  --fragment-delay: 35ms;
+}
+
+.void-intro__fragment--southeast {
+  clip-path: polygon(68% 69%, 100% 69%, 100% 100%, 68% 100%);
+  --fragment-x: 64px;
+  --fragment-y: 56px;
+  --fragment-rotate: 11deg;
+  --fragment-delay: 90ms;
+}
+
+.void-intro--leaving .void-intro__logo {
+  opacity: 0;
+}
+
+.void-intro--leaving .void-intro__fragment {
+  animation: void-logo-perish 1250ms cubic-bezier(0.16, 1, 0.3, 1) var(--fragment-delay) forwards;
+}
+
+@keyframes void-logo-perish {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    filter: blur(0);
+  }
+  16% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--fragment-x), var(--fragment-y), 0) rotate(var(--fragment-rotate)) scale(0.72);
+    filter: blur(5px);
+  }
+}
+
+.void-intro__button {
+  min-height: 52px;
+  margin-top: clamp(40px, 6vh, 68px);
+  padding: 17px 30px;
+  border: 1px solid rgba(245, 245, 242, 0.22);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.78);
+  color: var(--void-white);
+  box-shadow:
+    0 0 16px rgba(245, 245, 242, 0.045),
+    inset 0 0 10px rgba(245, 245, 242, 0.018);
+  transition:
+    border-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 350ms ease,
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__button:hover {
+  border-color: rgba(245, 245, 242, 0.58);
+  background: rgba(245, 245, 242, 0.025);
+  box-shadow:
+    0 0 22px rgba(245, 245, 242, 0.075),
+    inset 0 0 12px rgba(245, 245, 242, 0.025);
+}
+
+.void-intro__button span {
+  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro--leaving .void-intro__button {
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+}
+
+@keyframes void-stars-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: -28px 16px, 19px -24px, -32px 22px, 24px 14px, -18px -27px, 26px -12px, -12px 18px; }
+}
+
+@media (max-width: 600px) {
+  .void-intro__logo-stage {
+    width: min(78vw, 420px, 68vh);
+  }
+
+  .void-intro__button {
+    margin-top: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-content,
+  .void-intro,
+  .void-intro__logo,
+  .void-intro__fragment,
+  .void-intro__stars,
+  .void-intro__button,
+  .void-intro__button span {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .site-content {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   ATMOSPHERE POLISH — MOVING STARS + LOGO EDGE CLEANUP
+   ========================================================= */
+
+/* The page background stays black; stars move subtly behind the content. */
+.void-ambience {
+  background-color: #000000;
+  background-image: none;
+  overflow: hidden;
+}
+
+.void-ambience::before,
+.void-ambience::after {
+  content: '';
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+}
+
+.void-ambience::before {
+  opacity: 0.7;
+  background-image:
+    radial-gradient(1px 1px at 18px 32px, rgba(245, 245, 242, 0.7) 99%, transparent 100%),
+    radial-gradient(1px 1px at 94px 127px, rgba(245, 245, 242, 0.4) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 154px 84px, rgba(245, 245, 242, 0.65) 99%, transparent 100%),
+    radial-gradient(1px 1px at 206px 194px, rgba(245, 245, 242, 0.35) 99%, transparent 100%),
+    radial-gradient(1px 1px at 57px 238px, rgba(245, 245, 242, 0.5) 99%, transparent 100%);
+  background-size: 239px 263px, 311px 347px, 401px 389px, 467px 443px, 523px 487px;
+  animation: void-global-stars-drift 95s linear infinite;
+}
+
+.void-ambience::after {
+  opacity: 0.38;
+  background-image:
+    radial-gradient(1px 1px at 272px 53px, rgba(245, 245, 242, 0.6) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 328px 260px, rgba(245, 245, 242, 0.45) 99%, transparent 100%),
+    radial-gradient(1px 1px at 78px 172px, rgba(245, 245, 242, 0.4) 99%, transparent 100%),
+    radial-gradient(1px 1px at 382px 112px, rgba(245, 245, 242, 0.55) 99%, transparent 100%);
+  background-size: 587px 541px, 641px 607px, 439px 367px, 719px 673px;
+  animation:
+    void-global-stars-drift-reverse 145s linear infinite,
+    void-stars-twinkle 8s ease-in-out infinite alternate;
+}
+
+@keyframes void-global-stars-drift {
+  from {
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+  }
+  to {
+    background-position: -90px 56px, 44px -70px, -68px 44px, 54px 66px, -46px -58px;
+  }
+}
+
+@keyframes void-global-stars-drift-reverse {
+  from {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  to {
+    background-position: 50px -45px, -42px 58px, 35px 28px, -56px -34px;
+  }
+}
+
+@keyframes void-stars-twinkle {
+  from { opacity: 0.22; }
+  to { opacity: 0.58; }
+}
+
+/* Use the logo asset's luminance as a mask: dark pixels become transparent,
+   keeping its white mark while removing the rectangular image background. */
+.void-intro__logo,
+.void-intro__fragment {
+  -webkit-mask-image: url('/vacio-hero-logo.png');
+  mask-image: url('/vacio-hero-logo.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  mask-mode: luminance;
+}
+
+/* Make the intro starfield itself noticeably alive, without speeding it up harshly. */
+.void-intro__stars {
+  animation:
+    void-stars-drift 82s linear infinite,
+    void-stars-twinkle 11s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .void-ambience::before,
+  .void-ambience::after,
+  .void-intro__stars {
+    animation: none !important;
+  }
+}
+
+
+/* =========================================================
+   SLOW DUST DISSOLVE + SMOOTH STARFIELD MOTION
+   ========================================================= */
+
+.site-content {
+  transition: opacity 3300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro {
+  transition: opacity 3000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__logo {
+  z-index: 0;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  mix-blend-mode: screen;
+  filter: none !important;
+  opacity: 1;
+  transition: opacity 520ms ease;
+}
+
+.void-intro__dust-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms ease;
+}
+
+.void-intro--leaving .void-intro__logo {
+  opacity: 0;
+}
+
+.void-intro--leaving .void-intro__dust-canvas {
+  opacity: 1;
+}
+
+/* The black remains pure; the star layers drift on the compositor rather
+   than repeatedly repainting the entire star pattern. */
+.void-ambience::before {
+  animation: void-global-stars-float 38s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.void-ambience::after {
+  animation:
+    void-global-stars-float-reverse 53s ease-in-out infinite alternate,
+    void-global-stars-twinkle 7s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes void-global-stars-float {
+  from { transform: translate3d(-1.8%, 0.8%, 0) scale(1.01); }
+  to { transform: translate3d(1.8%, -1.2%, 0) scale(1.045); }
+}
+
+@keyframes void-global-stars-float-reverse {
+  from { transform: translate3d(1.5%, -1.1%, 0) scale(1.02); }
+  to { transform: translate3d(-1.5%, 1.4%, 0) scale(1.055); }
+}
+
+@keyframes void-global-stars-twinkle {
+  from { opacity: 0.24; }
+  to { opacity: 0.56; }
+}
+
+.void-intro__stars {
+  animation:
+    void-intro-starfield-sway 31s ease-in-out infinite alternate,
+    void-stars-twinkle 7.5s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes void-intro-starfield-sway {
+  from { transform: translate3d(-1.6%, 0.7%, 0) scale(1.02); }
+  to { transform: translate3d(1.6%, -1.5%, 0) scale(1.065); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-content,
+  .void-intro,
+  .void-intro__logo,
+  .void-intro__dust-canvas,
+  .void-intro__stars,
+  .void-ambience::before,
+  .void-ambience::after {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}
+
+
+/* EXTENDED, SLOWER ENTRY — LET THE DUST AND REVEAL BREATHE */
+.site-content {
+  transition: opacity 2400ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.void-intro {
+  transition: opacity 2300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.void-intro__logo {
+  transition: opacity 850ms ease !important;
+}
+
+.void-intro__dust-canvas {
+  transition: opacity 650ms ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-content,
+  .void-intro,
+  .void-intro__logo,
+  .void-intro__dust-canvas {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* Keep the mark at its original size while the dust particles dissolve away.
+   This overrides the older intro exit rule that scaled the logo down. */
+.void-intro--leaving .void-intro__logo {
+  transform: none !important;
+  filter: none !important;
+  transition: opacity 850ms ease !important;
+}
+
+.void-intro--leaving .void-intro__logo-stage {
+  transform: none !important;
+}
+
+
+/* Keep the starry void visible after the dust is gone, before the site appears. */
+.void-intro--leaving {
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
+.void-intro--revealing {
+  opacity: 0 !important;
+  pointer-events: none;
+}
