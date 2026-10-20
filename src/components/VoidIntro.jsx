@@ -24,6 +24,83 @@ function VoidIntro({ onReveal, onComplete }) {
     }
   }, [])
 
+  // Remove the logo asset's dark canvas in-pixel, instead of relying on
+  // blend modes or aggressive contrast filters that leave a visible frame.
+  useEffect(() => {
+    const logo = logoRef.current
+    if (!logo) return undefined
+
+    let cancelled = false
+
+    const removeDarkBackdrop = () => {
+      if (
+        cancelled ||
+        !logo.naturalWidth ||
+        !logo.naturalHeight ||
+        logo.dataset.backgroundCleared === 'true'
+      ) {
+        return
+      }
+
+      const sourceCanvas = document.createElement('canvas')
+      sourceCanvas.width = logo.naturalWidth
+      sourceCanvas.height = logo.naturalHeight
+
+      const sourceContext = sourceCanvas.getContext('2d', {
+        willReadFrequently: true,
+      })
+
+      if (!sourceContext) return
+
+      try {
+        sourceContext.drawImage(logo, 0, 0)
+        const imageData = sourceContext.getImageData(
+          0,
+          0,
+          sourceCanvas.width,
+          sourceCanvas.height,
+        )
+        const pixels = imageData.data
+
+        for (let index = 0; index < pixels.length; index += 4) {
+          const alpha = pixels[index + 3]
+          if (!alpha) continue
+
+          const luminance =
+            pixels[index] * 0.299 +
+            pixels[index + 1] * 0.587 +
+            pixels[index + 2] * 0.114
+
+          // Black and charcoal backdrop pixels become transparent, with a
+          // feathered threshold that preserves the bright logo and its glow.
+          const strength = Math.max(0, Math.min(1, (luminance - 48) / 112))
+          const mask = strength * strength * (3 - 2 * strength)
+          pixels[index + 3] = Math.round(alpha * mask)
+        }
+
+        sourceContext.putImageData(imageData, 0, 0)
+        const cleanedSource = sourceCanvas.toDataURL('image/png')
+
+        if (cancelled) return
+        logo.dataset.backgroundCleared = 'true'
+        logo.src = cleanedSource
+      } catch {
+        // If canvas pixel access is unavailable, leave the original logo intact.
+      }
+    }
+
+    if (logo.complete && logo.naturalWidth) {
+      removeDarkBackdrop()
+    } else {
+      logo.addEventListener('load', removeDarkBackdrop)
+    }
+
+    return () => {
+      cancelled = true
+      logo.removeEventListener('load', removeDarkBackdrop)
+    }
+  }, [])
+
   useEffect(() => {
     if (!leaving) return undefined
 
