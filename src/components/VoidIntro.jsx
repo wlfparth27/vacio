@@ -190,7 +190,7 @@ function VoidIntro({ onComplete }) {
       setRevealing(true)
 
       timeoutRef.current = window.setTimeout(onComplete, 6500)
-    }, 7850)
+    }, 7050)
   }
 
   return (
