@@ -1016,7 +1016,7 @@ body.void-site-revealing .site-content {
   -webkit-mask-image: none !important;
   mask-image: none !important;
   mix-blend-mode: screen;
-  filter: contrast(2.8) !important;
+  filter: none !important;
   opacity: 1;
   transition: opacity 520ms ease;
 }
@@ -1129,7 +1129,7 @@ body.void-site-revealing .site-content {
    This overrides the older intro exit rule that scaled the logo down. */
 .void-intro--leaving .void-intro__logo {
   transform: none !important;
-  filter: contrast(2.8) !important;
+  filter: none !important;
   transition: opacity 850ms ease !important;
 }
 
