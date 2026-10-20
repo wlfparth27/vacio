@@ -86,31 +86,43 @@ function SiteNav() {
 
 function App() {
   const [introVisible, setIntroVisible] = useState(true)
+  const [siteInteractive, setSiteInteractive] = useState(false)
 
   useEffect(() => {
-    document.body.classList.toggle('void-intro-open', introVisible)
+    document.body.classList.toggle('void-intro-open', !siteInteractive)
 
     return () => {
       document.body.classList.remove('void-intro-open')
     }
-  }, [introVisible])
+  }, [siteInteractive])
 
-  const enterSite = () => {
-    setIntroVisible(false)
+  const focusMain = () => {
     window.requestAnimationFrame(() => {
       document.getElementById('main')?.focus({ preventScroll: true })
     })
   }
 
+  const revealSite = () => {
+    // Unlock the page as its fade-in starts, rather than after the intro unmounts.
+    setSiteInteractive(true)
+    focusMain()
+  }
+
+  const enterSite = () => {
+    setSiteInteractive(true)
+    setIntroVisible(false)
+    focusMain()
+  }
+
   return (
     <>
       <div className="void-ambience" aria-hidden="true" />
-      {introVisible && <VoidIntro onComplete={enterSite} />}
+      {introVisible && <VoidIntro onReveal={revealSite} onComplete={enterSite} />}
 
       <div
         className="site-content"
-        inert={introVisible}
-        aria-hidden={introVisible ? 'true' : undefined}
+        inert={!siteInteractive}
+        aria-hidden={!siteInteractive ? 'true' : undefined}
       >
         <SiteNav />
 
