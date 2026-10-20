@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-function VoidIntro({ onComplete }) {
+function VoidIntro({ onReveal, onComplete }) {
   const [leaving, setLeaving] = useState(false)
   const [revealing, setRevealing] = useState(false)
   const buttonRef = useRef(null)
@@ -178,6 +178,7 @@ function VoidIntro({ onComplete }) {
     ).matches
 
     if (reducedMotion) {
+      onReveal()
       onComplete()
       return
     }
@@ -187,7 +188,9 @@ function VoidIntro({ onComplete }) {
     // Start the website reveal as the dust fade finishes, with no extra hold.
     timeoutRef.current = window.setTimeout(() => {
       document.body.classList.add('void-site-revealing')
+      buttonRef.current?.blur()
       setRevealing(true)
+      onReveal()
 
       timeoutRef.current = window.setTimeout(onComplete, 6500)
     }, 6250)
@@ -197,9 +200,11 @@ function VoidIntro({ onComplete }) {
     <div
       className={`void-intro ${leaving ? 'void-intro--leaving' : ''} ${revealing ? 'void-intro--revealing' : ''}`}
       role="dialog"
-      aria-modal="true"
+      aria-modal={!revealing ? 'true' : undefined}
+      aria-hidden={revealing ? 'true' : undefined}
       aria-labelledby="void-intro-title"
       onKeyDown={(event) => {
+        if (revealing) return
         if (event.key === 'Tab') {
           event.preventDefault()
           buttonRef.current?.focus()
