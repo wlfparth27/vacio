@@ -115,7 +115,7 @@ function VoidIntro({ onComplete }) {
     }
 
     const startedAt = performance.now()
-    const duration = 2950
+    const duration = 5600
 
     const drawDust = (now) => {
       const progress = Math.min((now - startedAt) / duration, 1)
@@ -184,7 +184,7 @@ function VoidIntro({ onComplete }) {
     }
 
     setLeaving(true)
-    timeoutRef.current = window.setTimeout(onComplete, 3300)
+    timeoutRef.current = window.setTimeout(onComplete, 6500)
   }
 
   return (
