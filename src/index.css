@@ -37,7 +37,11 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: var(--void-black);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(245, 245, 242, 0.035), transparent 46%),
+    radial-gradient(ellipse at 84% 62%, rgba(138, 138, 134, 0.022), transparent 48%),
+    var(--void-black);
+  background-attachment: fixed;
   color: var(--void-white);
   font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
