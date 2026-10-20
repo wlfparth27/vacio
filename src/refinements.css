@@ -1136,3 +1136,15 @@ body.void-site-revealing .site-content {
 .void-intro--leaving .void-intro__logo-stage {
   transform: none !important;
 }
+
+
+/* Keep the starry void visible after the dust is gone, before the site appears. */
+.void-intro--leaving {
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
+.void-intro--revealing {
+  opacity: 0 !important;
+  pointer-events: none;
+}
