@@ -1099,11 +1099,11 @@ body.void-site-revealing .site-content {
 
 /* EXTENDED, SLOWER ENTRY — LET THE DUST AND REVEAL BREATHE */
 .site-content {
-  transition: opacity 6500ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: opacity 2400ms cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .void-intro {
-  transition: opacity 6200ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: opacity 2300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .void-intro__logo {
