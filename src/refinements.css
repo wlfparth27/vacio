@@ -662,3 +662,242 @@ body::before {
     transition: none !important;
   }
 }
+
+
+/* =========================================================
+   VOID INTRO — PURE BLACK, STARFIELD, AND A SOFTER ARRIVAL
+   ========================================================= */
+
+.site-content {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 2150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.void-site-revealing .site-content {
+  opacity: 1;
+}
+
+.void-ambience {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+.void-intro {
+  background: #000000 !important;
+  transition: opacity 1700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.78;
+  background-image:
+    radial-gradient(1px 1px at 18px 32px, rgba(245, 245, 242, 0.76) 99%, transparent 100%),
+    radial-gradient(1px 1px at 94px 127px, rgba(245, 245, 242, 0.42) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 154px 84px, rgba(245, 245, 242, 0.68) 99%, transparent 100%),
+    radial-gradient(1px 1px at 206px 194px, rgba(245, 245, 242, 0.36) 99%, transparent 100%),
+    radial-gradient(1px 1px at 57px 238px, rgba(245, 245, 242, 0.52) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 272px 53px, rgba(245, 245, 242, 0.5) 99%, transparent 100%),
+    radial-gradient(1px 1px at 328px 260px, rgba(245, 245, 242, 0.32) 99%, transparent 100%);
+  background-size: 239px 263px, 311px 347px, 401px 389px, 467px 443px, 523px 487px, 587px 541px, 641px 607px;
+  animation: void-stars-drift 180s linear infinite;
+}
+
+.void-intro__content {
+  width: min(100%, 760px);
+}
+
+.void-intro__logo-stage {
+  position: relative;
+  isolation: isolate;
+  width: min(70vw, 540px, 83vh);
+  aspect-ratio: 1.83;
+}
+
+.void-intro__logo,
+.void-intro__fragment {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.void-intro__logo {
+  opacity: 1;
+  transform: none;
+  animation: none !important;
+  transition: opacity 240ms ease;
+}
+
+.void-intro__fragment {
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.void-intro__fragment--northwest {
+  clip-path: polygon(0 0, 35% 0, 35% 43%, 0 43%);
+  --fragment-x: -48px;
+  --fragment-y: -55px;
+  --fragment-rotate: -10deg;
+  --fragment-delay: 0ms;
+}
+
+.void-intro__fragment--north {
+  clip-path: polygon(32% 0, 69% 0, 69% 42%, 32% 42%);
+  --fragment-x: 3px;
+  --fragment-y: -70px;
+  --fragment-rotate: 5deg;
+  --fragment-delay: 45ms;
+}
+
+.void-intro__fragment--northeast {
+  clip-path: polygon(66% 0, 100% 0, 100% 44%, 66% 44%);
+  --fragment-x: 62px;
+  --fragment-y: -45px;
+  --fragment-rotate: 12deg;
+  --fragment-delay: 80ms;
+}
+
+.void-intro__fragment--middle-left {
+  clip-path: polygon(0 38%, 40% 38%, 40% 73%, 0 73%);
+  --fragment-x: -78px;
+  --fragment-y: 4px;
+  --fragment-rotate: -8deg;
+  --fragment-delay: 25ms;
+}
+
+.void-intro__fragment--middle-right {
+  clip-path: polygon(60% 36%, 100% 36%, 100% 75%, 60% 75%);
+  --fragment-x: 77px;
+  --fragment-y: 12px;
+  --fragment-rotate: 9deg;
+  --fragment-delay: 55ms;
+}
+
+.void-intro__fragment--southwest {
+  clip-path: polygon(0 68%, 42% 68%, 42% 100%, 0 100%);
+  --fragment-x: -55px;
+  --fragment-y: 62px;
+  --fragment-rotate: -13deg;
+  --fragment-delay: 75ms;
+}
+
+.void-intro__fragment--south {
+  clip-path: polygon(38% 69%, 72% 69%, 72% 100%, 38% 100%);
+  --fragment-x: 4px;
+  --fragment-y: 76px;
+  --fragment-rotate: 4deg;
+  --fragment-delay: 35ms;
+}
+
+.void-intro__fragment--southeast {
+  clip-path: polygon(68% 69%, 100% 69%, 100% 100%, 68% 100%);
+  --fragment-x: 64px;
+  --fragment-y: 56px;
+  --fragment-rotate: 11deg;
+  --fragment-delay: 90ms;
+}
+
+.void-intro--leaving .void-intro__logo {
+  opacity: 0;
+}
+
+.void-intro--leaving .void-intro__fragment {
+  animation: void-logo-perish 1250ms cubic-bezier(0.16, 1, 0.3, 1) var(--fragment-delay) forwards;
+}
+
+@keyframes void-logo-perish {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    filter: blur(0);
+  }
+  16% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--fragment-x), var(--fragment-y), 0) rotate(var(--fragment-rotate)) scale(0.72);
+    filter: blur(5px);
+  }
+}
+
+.void-intro__button {
+  min-height: 52px;
+  margin-top: clamp(40px, 6vh, 68px);
+  padding: 17px 30px;
+  border: 1px solid rgba(245, 245, 242, 0.22);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.78);
+  color: var(--void-white);
+  box-shadow:
+    0 0 16px rgba(245, 245, 242, 0.045),
+    inset 0 0 10px rgba(245, 245, 242, 0.018);
+  transition:
+    border-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 350ms ease,
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__button:hover {
+  border-color: rgba(245, 245, 242, 0.58);
+  background: rgba(245, 245, 242, 0.025);
+  box-shadow:
+    0 0 22px rgba(245, 245, 242, 0.075),
+    inset 0 0 12px rgba(245, 245, 242, 0.025);
+}
+
+.void-intro__button span {
+  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro--leaving .void-intro__button {
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+}
+
+@keyframes void-stars-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: -28px 16px, 19px -24px, -32px 22px, 24px 14px, -18px -27px, 26px -12px, -12px 18px; }
+}
+
+@media (max-width: 600px) {
+  .void-intro__logo-stage {
+    width: min(78vw, 420px, 68vh);
+  }
+
+  .void-intro__button {
+    margin-top: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-content,
+  .void-intro,
+  .void-intro__logo,
+  .void-intro__fragment,
+  .void-intro__stars,
+  .void-intro__button,
+  .void-intro__button span {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .site-content {
+    opacity: 1;
+  }
+}
