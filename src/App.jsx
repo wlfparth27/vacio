@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import './refinements.css'
+import VoidIntro from './components/VoidIntro'
 
 import IdeaSection from './components/IdeaSection'
 import ServicesSection from './components/ServicesSection'
@@ -84,13 +85,38 @@ function SiteNav() {
 }
 
 function App() {
+  const [introVisible, setIntroVisible] = useState(true)
+
+  useEffect(() => {
+    document.body.classList.toggle('void-intro-open', introVisible)
+
+    return () => {
+      document.body.classList.remove('void-intro-open')
+    }
+  }, [introVisible])
+
+  const enterSite = () => {
+    setIntroVisible(false)
+    window.requestAnimationFrame(() => {
+      document.getElementById('main')?.focus({ preventScroll: true })
+    })
+  }
+
   return (
     <>
-      <SiteNav />
+      <div className="void-ambience" aria-hidden="true" />
+      {introVisible && <VoidIntro onComplete={enterSite} />}
 
-      <a href="#main" className="skip-link">Skip to content</a>
+      <div
+        className="site-content"
+        inert={introVisible}
+        aria-hidden={introVisible ? 'true' : undefined}
+      >
+        <SiteNav />
 
-      <main id="main" tabIndex={-1}>
+        <a href="#main" className="skip-link">Skip to content</a>
+
+        <main id="main" tabIndex={-1}>
         {/* HERO */}
         <section className="hero" id="home">
           <div className="hero__grid">
@@ -171,10 +197,11 @@ function App() {
         {/* CONTACT */}
         <ContactSection />
 
-      </main>
+        </main>
 
-      {/* FOOTER */}
-      <Footer />
+        {/* FOOTER */}
+        <Footer />
+      </div>
     </>
   )
 }
