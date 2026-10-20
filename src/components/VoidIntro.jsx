@@ -184,13 +184,13 @@ function VoidIntro({ onComplete }) {
 
     setLeaving(true)
 
-    // Let the dust finish and hold on the starfield before revealing the site.
+    // Start the website reveal as the dust fade finishes, with no extra hold.
     timeoutRef.current = window.setTimeout(() => {
       document.body.classList.add('void-site-revealing')
       setRevealing(true)
 
       timeoutRef.current = window.setTimeout(onComplete, 6500)
-    }, 6650)
+    }, 6250)
   }
 
   return (
