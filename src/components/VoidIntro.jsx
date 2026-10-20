@@ -1,5 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 
+const logoFragments = [
+  'northwest',
+  'north',
+  'northeast',
+  'middle-left',
+  'middle-right',
+  'southwest',
+  'south',
+  'southeast',
+]
+
 function VoidIntro({ onComplete }) {
   const [leaving, setLeaving] = useState(false)
   const buttonRef = useRef(null)
@@ -18,6 +29,8 @@ function VoidIntro({ onComplete }) {
   const handleTakeLeap = () => {
     if (leaving) return
 
+    document.body.classList.add('void-site-revealing')
+
     const reducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches
@@ -28,7 +41,7 @@ function VoidIntro({ onComplete }) {
     }
 
     setLeaving(true)
-    timeoutRef.current = window.setTimeout(onComplete, 1050)
+    timeoutRef.current = window.setTimeout(onComplete, 1700)
   }
 
   return (
@@ -44,19 +57,28 @@ function VoidIntro({ onComplete }) {
         }
       }}
     >
-      <div className="void-intro__halo" aria-hidden="true" />
-
+      <div className="void-intro__stars" aria-hidden="true" />
       <div className="void-intro__content">
         <h1 className="void-intro__sr-only" id="void-intro-title">
           Vacio.
         </h1>
 
-        <img
-          className="void-intro__logo"
-          src="/vacio-hero-logo.png"
-          alt=""
-          aria-hidden="true"
-        />
+        <div className="void-intro__logo-stage" aria-hidden="true">
+          <img
+            className="void-intro__logo"
+            src="/vacio-hero-logo.png"
+            alt=""
+          />
+
+          {logoFragments.map((fragment) => (
+            <img
+              key={fragment}
+              className={`void-intro__fragment void-intro__fragment--${fragment}`}
+              src="/vacio-hero-logo.png"
+              alt=""
+            />
+          ))}
+        </div>
 
         <button
           ref={buttonRef}
