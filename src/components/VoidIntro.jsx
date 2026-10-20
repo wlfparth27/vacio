@@ -63,7 +63,7 @@ function VoidIntro({ onComplete }) {
           type="button"
           className="void-intro__button"
           onClick={handleTakeLeap}
-          disabled={leaving}
+          aria-disabled={leaving ? 'true' : undefined}
         >
           Take the leap <span aria-hidden="true">↗</span>
         </button>
