@@ -1095,3 +1095,31 @@ body.void-site-revealing .site-content {
     will-change: auto !important;
   }
 }
+
+
+/* EXTENDED, SLOWER ENTRY — LET THE DUST AND REVEAL BREATHE */
+.site-content {
+  transition: opacity 6500ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.void-intro {
+  transition: opacity 6200ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.void-intro__logo {
+  transition: opacity 850ms ease !important;
+}
+
+.void-intro__dust-canvas {
+  transition: opacity 650ms ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-content,
+  .void-intro,
+  .void-intro__logo,
+  .void-intro__dust-canvas {
+    transition: none !important;
+    animation: none !important;
+  }
+}
