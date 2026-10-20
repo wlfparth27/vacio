@@ -1123,3 +1123,16 @@ body.void-site-revealing .site-content {
     animation: none !important;
   }
 }
+
+
+/* Keep the mark at its original size while the dust particles dissolve away.
+   This overrides the older intro exit rule that scaled the logo down. */
+.void-intro--leaving .void-intro__logo {
+  transform: none !important;
+  filter: contrast(2.8) !important;
+  transition: opacity 850ms ease !important;
+}
+
+.void-intro--leaving .void-intro__logo-stage {
+  transform: none !important;
+}
