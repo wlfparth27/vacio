@@ -37,6 +37,12 @@ function VoidIntro({ onComplete }) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="void-intro-title"
+      onKeyDown={(event) => {
+        if (event.key === 'Tab') {
+          event.preventDefault()
+          buttonRef.current?.focus()
+        }
+      }}
     >
       <div className="void-intro__halo" aria-hidden="true" />
 
