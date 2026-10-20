@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 function VoidIntro({ onComplete }) {
   const [leaving, setLeaving] = useState(false)
+  const [revealing, setRevealing] = useState(false)
   const buttonRef = useRef(null)
   const stageRef = useRef(null)
   const logoRef = useRef(null)
@@ -172,8 +173,6 @@ function VoidIntro({ onComplete }) {
   const handleTakeLeap = () => {
     if (leaving) return
 
-    document.body.classList.add('void-site-revealing')
-
     const reducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches
@@ -184,12 +183,19 @@ function VoidIntro({ onComplete }) {
     }
 
     setLeaving(true)
-    timeoutRef.current = window.setTimeout(onComplete, 6500)
+
+    // Let the dust finish and hold on the starfield before revealing the site.
+    timeoutRef.current = window.setTimeout(() => {
+      document.body.classList.add('void-site-revealing')
+      setRevealing(true)
+
+      timeoutRef.current = window.setTimeout(onComplete, 6500)
+    }, 7200)
   }
 
   return (
     <div
-      className={`void-intro ${leaving ? 'void-intro--leaving' : ''}`}
+      className={`void-intro ${leaving ? 'void-intro--leaving' : ''} ${revealing ? 'void-intro--revealing' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="void-intro-title"
