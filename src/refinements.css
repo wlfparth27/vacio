@@ -997,3 +997,101 @@ body.void-site-revealing .site-content {
     animation: none !important;
   }
 }
+
+
+/* =========================================================
+   SLOW DUST DISSOLVE + SMOOTH STARFIELD MOTION
+   ========================================================= */
+
+.site-content {
+  transition: opacity 3300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro {
+  transition: opacity 3000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.void-intro__logo {
+  z-index: 0;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  mix-blend-mode: screen;
+  filter: contrast(2.8) !important;
+  opacity: 1;
+  transition: opacity 520ms ease;
+}
+
+.void-intro__dust-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms ease;
+}
+
+.void-intro--leaving .void-intro__logo {
+  opacity: 0;
+}
+
+.void-intro--leaving .void-intro__dust-canvas {
+  opacity: 1;
+}
+
+/* The black remains pure; the star layers drift on the compositor rather
+   than repeatedly repainting the entire star pattern. */
+.void-ambience::before {
+  animation: void-global-stars-float 38s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.void-ambience::after {
+  animation:
+    void-global-stars-float-reverse 53s ease-in-out infinite alternate,
+    void-global-stars-twinkle 7s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes void-global-stars-float {
+  from { transform: translate3d(-1.8%, 0.8%, 0) scale(1.01); }
+  to { transform: translate3d(1.8%, -1.2%, 0) scale(1.045); }
+}
+
+@keyframes void-global-stars-float-reverse {
+  from { transform: translate3d(1.5%, -1.1%, 0) scale(1.02); }
+  to { transform: translate3d(-1.5%, 1.4%, 0) scale(1.055); }
+}
+
+@keyframes void-global-stars-twinkle {
+  from { opacity: 0.24; }
+  to { opacity: 0.56; }
+}
+
+.void-intro__stars {
+  animation:
+    void-intro-starfield-sway 31s ease-in-out infinite alternate,
+    void-stars-twinkle 7.5s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes void-intro-starfield-sway {
+  from { transform: translate3d(-1.6%, 0.7%, 0) scale(1.02); }
+  to { transform: translate3d(1.6%, -1.5%, 0) scale(1.065); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-content,
+  .void-intro,
+  .void-intro__logo,
+  .void-intro__dust-canvas,
+  .void-intro__stars,
+  .void-ambience::before,
+  .void-ambience::after {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}
