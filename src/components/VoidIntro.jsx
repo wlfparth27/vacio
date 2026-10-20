@@ -116,7 +116,7 @@ function VoidIntro({ onReveal, onComplete }) {
     }
 
     const startedAt = performance.now()
-    const duration = 5600
+    const duration = 3200
 
     const drawDust = (now) => {
       const progress = Math.min((now - startedAt) / duration, 1)
@@ -192,8 +192,8 @@ function VoidIntro({ onReveal, onComplete }) {
       setRevealing(true)
       onReveal()
 
-      timeoutRef.current = window.setTimeout(onComplete, 6500)
-    }, 6250)
+      timeoutRef.current = window.setTimeout(onComplete, 2500)
+    }, 3850)
   }
 
   return (
