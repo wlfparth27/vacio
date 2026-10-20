@@ -899,3 +899,101 @@ body.void-site-revealing .site-content {
     opacity: 1;
   }
 }
+
+
+/* =========================================================
+   ATMOSPHERE POLISH — MOVING STARS + LOGO EDGE CLEANUP
+   ========================================================= */
+
+/* The page background stays black; stars move subtly behind the content. */
+.void-ambience {
+  background-color: #000000;
+  background-image: none;
+  overflow: hidden;
+}
+
+.void-ambience::before,
+.void-ambience::after {
+  content: '';
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+}
+
+.void-ambience::before {
+  opacity: 0.7;
+  background-image:
+    radial-gradient(1px 1px at 18px 32px, rgba(245, 245, 242, 0.7) 99%, transparent 100%),
+    radial-gradient(1px 1px at 94px 127px, rgba(245, 245, 242, 0.4) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 154px 84px, rgba(245, 245, 242, 0.65) 99%, transparent 100%),
+    radial-gradient(1px 1px at 206px 194px, rgba(245, 245, 242, 0.35) 99%, transparent 100%),
+    radial-gradient(1px 1px at 57px 238px, rgba(245, 245, 242, 0.5) 99%, transparent 100%);
+  background-size: 239px 263px, 311px 347px, 401px 389px, 467px 443px, 523px 487px;
+  animation: void-global-stars-drift 95s linear infinite;
+}
+
+.void-ambience::after {
+  opacity: 0.38;
+  background-image:
+    radial-gradient(1px 1px at 272px 53px, rgba(245, 245, 242, 0.6) 99%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 328px 260px, rgba(245, 245, 242, 0.45) 99%, transparent 100%),
+    radial-gradient(1px 1px at 78px 172px, rgba(245, 245, 242, 0.4) 99%, transparent 100%),
+    radial-gradient(1px 1px at 382px 112px, rgba(245, 245, 242, 0.55) 99%, transparent 100%);
+  background-size: 587px 541px, 641px 607px, 439px 367px, 719px 673px;
+  animation:
+    void-global-stars-drift-reverse 145s linear infinite,
+    void-stars-twinkle 8s ease-in-out infinite alternate;
+}
+
+@keyframes void-global-stars-drift {
+  from {
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+  }
+  to {
+    background-position: -90px 56px, 44px -70px, -68px 44px, 54px 66px, -46px -58px;
+  }
+}
+
+@keyframes void-global-stars-drift-reverse {
+  from {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  to {
+    background-position: 50px -45px, -42px 58px, 35px 28px, -56px -34px;
+  }
+}
+
+@keyframes void-stars-twinkle {
+  from { opacity: 0.22; }
+  to { opacity: 0.58; }
+}
+
+/* Use the logo asset's luminance as a mask: dark pixels become transparent,
+   keeping its white mark while removing the rectangular image background. */
+.void-intro__logo,
+.void-intro__fragment {
+  -webkit-mask-image: url('/vacio-hero-logo.png');
+  mask-image: url('/vacio-hero-logo.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  mask-mode: luminance;
+}
+
+/* Make the intro starfield itself noticeably alive, without speeding it up harshly. */
+.void-intro__stars {
+  animation:
+    void-stars-drift 82s linear infinite,
+    void-stars-twinkle 11s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .void-ambience::before,
+  .void-ambience::after,
+  .void-intro__stars {
+    animation: none !important;
+  }
+}
